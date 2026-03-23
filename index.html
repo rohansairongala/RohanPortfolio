@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rohan Rongala — ML & AI Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0d0d;
+    --surface: #141414;
+    --surface2: #1c1c1c;
+    --border: #2a2a2a;
+    --accent: #00e5a0;
+    --accent2: #ff6b35;
+    --text: #f0f0f0;
+    --muted: #888;
+    --tag-bg: #1e2e27;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-noise {
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 0;
+  }
+
+  .hero-left {
+    padding: 80px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative; z-index: 1;
+  }
+
+  .eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 24px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .eyebrow::before {
+    content: '';
+    display: inline-block; width: 30px; height: 1px;
+    background: var(--accent);
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(52px, 6vw, 80px);
+    font-weight: 800;
+    line-height: 1.0;
+    letter-spacing: -2px;
+    margin-bottom: 28px;
+  }
+
+  h1 span {
+    display: block;
+    -webkit-text-stroke: 1px var(--accent);
+    color: transparent;
+  }
+
+  .hero-bio {
+    font-size: 16px;
+    color: #aaa;
+    max-width: 440px;
+    margin-bottom: 44px;
+    line-height: 1.8;
+  }
+
+  .hero-links {
+    display: flex; gap: 16px; flex-wrap: wrap;
+  }
+
+  .btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 14px 28px;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #000;
+    font-weight: 500;
+  }
+  .btn-primary:hover { background: #00ffb3; transform: translateY(-1px); }
+  .btn-outline {
+    border: 1px solid var(--border);
+    color: var(--muted);
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+  .hero-right {
+    background: var(--surface);
+    display: flex; flex-direction: column;
+    justify-content: flex-end;
+    padding: 60px;
+    position: relative; z-index: 1;
+    border-left: 1px solid var(--border);
+  }
+
+  .stat-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1px; background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 8px; overflow: hidden;
+    margin-bottom: 40px;
+  }
+  .stat {
+    background: var(--surface);
+    padding: 28px 24px;
+  }
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 40px; font-weight: 800;
+    color: var(--accent); line-height: 1;
+    margin-bottom: 6px;
+  }
+  .stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--muted);
+  }
+
+  .location-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; color: var(--muted);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .location-badge::before {
+    content: '◉'; color: var(--accent); font-size: 8px;
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 100px 60px; max-width: 1200px; margin: 0 auto; }
+  
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.3em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 50px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .section-label::after {
+    content: ''; flex: 1; height: 1px;
+    background: linear-gradient(to right, var(--border), transparent);
+  }
+
+  h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -1px;
+  }
+
+  /* ── PROJECTS ── */
+  .projects-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 2px; background: var(--border);
+    border: 1px solid var(--border); border-radius: 12px;
+    overflow: hidden; margin-top: 48px;
+  }
+
+  .project-card {
+    background: var(--surface);
+    padding: 44px;
+    transition: background 0.2s;
+    position: relative;
+  }
+  .project-card:hover { background: var(--surface2); }
+  .project-card.featured {
+    grid-column: 1 / -1;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 40px; align-items: start;
+  }
+
+  .project-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; color: var(--muted);
+    margin-bottom: 20px;
+  }
+
+  .project-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px; font-weight: 700;
+    margin-bottom: 14px; letter-spacing: -0.5px;
+  }
+
+  .project-desc {
+    font-size: 14px; color: #999;
+    line-height: 1.75; margin-bottom: 24px;
+  }
+
+  .project-metric {
+    display: inline-block;
+    background: var(--tag-bg);
+    border: 1px solid #1e3d2e;
+    color: var(--accent);
+    font-family: 'DM Mono', monospace;
+    font-size: 12px; padding: 6px 14px;
+    border-radius: 3px; margin-bottom: 24px;
+  }
+
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 5px 12px; border-radius: 3px;
+    background: #1a1a1a; border: 1px solid var(--border);
+    color: var(--muted);
+  }
+
+  .project-links { display: flex; gap: 12px; margin-top: 24px; }
+  .project-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; color: var(--accent);
+    text-decoration: none;
+    padding: 8px 16px; border: 1px solid #1e3d2e;
+    border-radius: 3px; transition: all 0.2s;
+  }
+  .project-link:hover { background: var(--tag-bg); }
+
+  /* ── EXPERIENCE ── */
+  .exp-list { margin-top: 48px; }
+  .exp-item {
+    display: grid; grid-template-columns: 200px 1fr;
+    gap: 40px;
+    padding: 44px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .exp-item:first-child { border-top: 1px solid var(--border); }
+
+  .exp-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px; color: var(--muted);
+    padding-top: 4px;
+  }
+
+  .exp-org {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 10px;
+  }
+
+  .exp-role {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px; font-weight: 700;
+    margin-bottom: 16px; letter-spacing: -0.3px;
+  }
+
+  .exp-desc {
+    font-size: 14px; color: #999;
+    line-height: 1.8;
+  }
+
+  .exp-bullets {
+    margin-top: 14px; padding-left: 0;
+    list-style: none;
+  }
+  .exp-bullets li {
+    font-size: 14px; color: #999;
+    padding: 5px 0; padding-left: 18px;
+    position: relative;
+  }
+  .exp-bullets li::before {
+    content: '▸';
+    position: absolute; left: 0;
+    color: var(--accent); font-size: 10px; top: 7px;
+  }
+
+  /* ── SKILLS ── */
+  .skills-wrap { margin-top: 48px; }
+  .skill-group { margin-bottom: 48px; }
+  .skill-group-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--muted);
+    margin-bottom: 20px;
+  }
+  .skill-bars { display: flex; flex-direction: column; gap: 14px; }
+  .skill-bar-item { display: flex; align-items: center; gap: 20px; }
+  .skill-name {
+    font-size: 14px; width: 160px; flex-shrink: 0;
+  }
+  .skill-track {
+    flex: 1; height: 3px;
+    background: var(--border); border-radius: 2px;
+    position: relative;
+  }
+  .skill-fill {
+    position: absolute; left: 0; top: 0; bottom: 0;
+    background: var(--accent); border-radius: 2px;
+    transition: width 1s ease;
+  }
+  .skill-pct {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; color: var(--muted);
+    width: 36px; text-align: right;
+  }
+
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 10px; }
+  .skill-pill {
+    font-size: 13px;
+    padding: 9px 18px; border-radius: 30px;
+    border: 1px solid var(--border);
+    color: #ccc;
+    background: var(--surface);
+    transition: all 0.2s;
+  }
+  .skill-pill:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ── EDUCATION ── */
+  .edu-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 44px; margin-top: 48px;
+    display: grid; grid-template-columns: 1fr auto;
+    gap: 24px; align-items: start;
+  }
+  .edu-school {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 10px;
+  }
+  .edu-degree {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px; font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .edu-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px; color: var(--muted);
+    white-space: nowrap;
+  }
+
+  /* ── CERTIFICATIONS ── */
+  .cert-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 16px; margin-top: 48px;
+  }
+  .cert-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px; padding: 28px;
+    display: flex; align-items: flex-start; gap: 18px;
+    transition: border-color 0.2s;
+  }
+  .cert-card:hover { border-color: var(--accent); }
+  .cert-icon {
+    width: 40px; height: 40px; border-radius: 6px;
+    background: var(--tag-bg);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; flex-shrink: 0;
+  }
+  .cert-name {
+    font-size: 14px; font-weight: 500;
+    margin-bottom: 6px;
+  }
+  .cert-org {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; color: var(--muted); letter-spacing: 0.1em;
+  }
+
+  /* ── CONTACT ── */
+  .contact-section {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 80px 60px;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 60px; align-items: center;
+    max-width: 100%;
+  }
+  .contact-heading {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(36px, 4vw, 56px);
+    font-weight: 800; letter-spacing: -1.5px;
+    line-height: 1.05;
+    margin-bottom: 20px;
+  }
+  .contact-sub { color: var(--muted); font-size: 15px; }
+  .contact-links { display: flex; flex-direction: column; gap: 16px; }
+  .contact-link {
+    display: flex; align-items: center; gap: 16px;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px; color: #ccc; text-decoration: none;
+    padding: 18px 22px;
+    border: 1px solid var(--border); border-radius: 6px;
+    transition: all 0.2s;
+  }
+  .contact-link:hover { border-color: var(--accent); color: var(--accent); }
+  .contact-link-icon { font-size: 16px; width: 24px; text-align: center; }
+
+  footer {
+    padding: 32px 60px;
+    border-top: 1px solid var(--border);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; color: var(--muted);
+    display: flex; justify-content: space-between;
+    align-items: center;
+  }
+
+  /* ── DECORATIVE LINES ── */
+  .grid-line {
+    position: fixed; top: 0; bottom: 0;
+    width: 1px; background: rgba(255,255,255,0.025);
+    pointer-events: none; z-index: 0;
+  }
+  .grid-line:nth-child(1) { left: 25%; }
+  .grid-line:nth-child(2) { left: 50%; }
+  .grid-line:nth-child(3) { left: 75%; }
+
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-right { border-left: none; border-top: 1px solid var(--border); }
+    .projects-grid { grid-template-columns: 1fr; }
+    .project-card.featured { grid-template-columns: 1fr; }
+    .exp-item { grid-template-columns: 1fr; gap: 10px; }
+    .cert-grid { grid-template-columns: 1fr; }
+    .contact-section { grid-template-columns: 1fr; }
+    section { padding: 60px 24px; }
+    .hero-left { padding: 60px 24px; }
+    .hero-right { padding: 40px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="grid-line"></div>
+<div class="grid-line"></div>
+<div class="grid-line"></div>
+
+<!-- ═══ HERO ═══ -->
+<div class="hero">
+  <div class="hero-noise"></div>
+
+  <div class="hero-left">
+    <div class="eyebrow">ML Engineer · AI Builder</div>
+    <h1>
+      Rohan
+      <span>Rongala</span>
+    </h1>
+    <p class="hero-bio">
+      Building intelligent systems at the intersection of machine learning, generative AI, and real-world problems. Python · AWS Cloud · NLP · RAG Pipelines.
+    </p>
+    <div class="hero-links">
+      <a href="https://github.com/rohansairongala" class="btn btn-primary" target="_blank">GitHub Projects ↗</a>
+      <a href="https://www.linkedin.com/in/rohanrongala" class="btn btn-outline" target="_blank">LinkedIn ↗</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="stat-grid">
+      <div class="stat">
+        <div class="stat-num">88%</div>
+        <div class="stat-label">NLP Model Accuracy</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">300+</div>
+        <div class="stat-label">Community Members</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">15+</div>
+        <div class="stat-label">Prompt Quality Points</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">4yr</div>
+        <div class="stat-label">Filmmaking Experience</div>
+      </div>
+    </div>
+    <div class="location-badge">Johannesburg, South Africa · Available for opportunities</div>
+  </div>
+</div>
+
+<!-- ═══ PROJECTS ═══ -->
+<section>
+  <div class="section-label">Selected Work</div>
+  <h2>Machine Learning<br>Projects</h2>
+
+  <div class="projects-grid">
+
+    <!-- Featured: Sentiment Analyser -->
+    <div class="project-card featured">
+      <div>
+        <div class="project-num">01 — NLP</div>
+        <div class="project-title">Movie Review Sentiment Analyser</div>
+        <div class="project-metric">88.38% Accuracy · 50,000 Reviews</div>
+        <div class="project-desc">
+          NLP binary classifier trained on the full IMDB dataset. Benchmarked Logistic Regression vs. Naive Bayes and selected the best model based on F1 score. Deployed as a live interactive web app via Streamlit Cloud.
+        </div>
+        <div class="tags">
+          <span class="tag">Python</span>
+          <span class="tag">scikit-learn</span>
+          <span class="tag">NLP</span>
+          <span class="tag">TF-IDF</span>
+          <span class="tag">Streamlit</span>
+        </div>
+        <div class="project-links">
+          <a href="https://sentiment-analyser-rohan.streamlit.app" class="project-link" target="_blank">Live App ↗</a>
+          <a href="https://github.com/rohansairongala/sentiment-analyser" class="project-link" target="_blank">GitHub ↗</a>
+        </div>
+      </div>
+      <div style="background: var(--surface2); border-radius: 8px; padding: 32px; border: 1px solid var(--border);">
+        <div style="font-family:'DM Mono',monospace; font-size:11px; color:var(--muted); margin-bottom:20px;">Model Comparison</div>
+        <div style="margin-bottom:18px;">
+          <div style="display:flex; justify-content:space-between; font-size:13px; margin-bottom:8px;"><span>Logistic Regression</span><span style="color:var(--accent)">88.38%</span></div>
+          <div style="height:4px; background:var(--border); border-radius:2px;"><div style="width:88%; height:100%; background:var(--accent); border-radius:2px;"></div></div>
+        </div>
+        <div>
+          <div style="display:flex; justify-content:space-between; font-size:13px; margin-bottom:8px;"><span>Naive Bayes</span><span style="color:#666">85.2%</span></div>
+          <div style="height:4px; background:var(--border); border-radius:2px;"><div style="width:85%; height:100%; background:#333; border-radius:2px;"></div></div>
+        </div>
+        <div style="margin-top:24px; padding-top:24px; border-top:1px solid var(--border); font-size:12px; color:var(--muted); line-height:1.7;">
+          Selected on F1 score · Deployed live on Streamlit Cloud
+        </div>
+      </div>
+    </div>
+
+    <!-- RAG Prompt Enhancer -->
+    <div class="project-card">
+      <div class="project-num">02 — RAG · LLM</div>
+      <div class="project-title">AI Prompt Enhancer</div>
+      <div class="project-metric">15+ Points Avg. Quality Gain</div>
+      <div class="project-desc">
+        Research-backed RAG system that enhances prompts for Claude, ChatGPT, Gemini, DeepSeek and Grok. Grounded in 6 peer-reviewed NLP papers (CoT, ToT, ReAct, Self-Consistency). FAISS vector search with sentence-transformer embeddings at inference time.
+      </div>
+      <div class="tags">
+        <span class="tag">RAG</span>
+        <span class="tag">FAISS</span>
+        <span class="tag">LLaMA 3.3</span>
+        <span class="tag">Groq API</span>
+        <span class="tag">Embeddings</span>
+      </div>
+      <div class="project-links">
+        <a href="https://prompt-enhancer-rohan.streamlit.app" class="project-link" target="_blank">Live App ↗</a>
+        <a href="https://github.com/rohansairongala/prompt-enhancer" class="project-link" target="_blank">GitHub ↗</a>
+      </div>
+    </div>
+
+    <!-- Python Data Analysis -->
+    <div class="project-card">
+      <div class="project-num">03 — Data Analysis</div>
+      <div class="project-title">Python Data Analysis Scripts</div>
+      <div class="project-desc">
+        Developed Python programs to analyze student score datasets. Used pandas for data processing and matplotlib for visualization. Built automated calculation scripts and practiced clean, documented coding.
+      </div>
+      <div class="tags">
+        <span class="tag">Python</span>
+        <span class="tag">pandas</span>
+        <span class="tag">matplotlib</span>
+        <span class="tag">Data Viz</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ EXPERIENCE ═══ -->
+<section>
+  <div class="section-label">Background</div>
+  <h2>Experience</h2>
+
+  <div class="exp-list">
+
+    <div class="exp-item">
+      <div class="exp-date">Mar 2026 – Present<br><br><span style="color:var(--accent); font-size:10px;">1 month</span></div>
+      <div>
+        <div class="exp-org">Independent / Personal Projects</div>
+        <div class="exp-role">Machine Learning Developer</div>
+        <div class="exp-desc">Independently designing and building end-to-end ML projects, published on GitHub with live Streamlit deployments. Focused on NLP, RAG pipelines, and LLM API integration.</div>
+        <ul class="exp-bullets">
+          <li>Built NLP classifier with 88.38% accuracy on 50,000 IMDB reviews</li>
+          <li>Developed FAISS vector search RAG pipeline grounded in 6 NLP research papers</li>
+          <li>Integrated Groq LLaMA 3.3 API across 5 LLM models for prompt enhancement</li>
+          <li>Deployed both projects as live web apps on Streamlit Cloud</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-date">Feb 2026 – Present<br><br><span style="color:var(--accent); font-size:10px;">2 months</span></div>
+      <div>
+        <div class="exp-org">AIE IT Student Community</div>
+        <div class="exp-role">Student Community Organizer</div>
+        <div class="exp-desc">Founded and organized a student community to improve collaboration and academic resource sharing for IT students across South Africa.</div>
+        <ul class="exp-bullets">
+          <li>Built and managed a network of 300+ students across branches</li>
+          <li>Structured subject-specific communication groups for improved coordination</li>
+          <li>Organized study resources, announcements, and information-sharing channels</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-date">Mar 2022 – Present<br><br><span style="color:var(--accent); font-size:10px;">4 years</span></div>
+      <div>
+        <div class="exp-org">Sarga Entertainments</div>
+        <div class="exp-role">Filmmaker</div>
+        <div class="exp-desc">Writer, director and post-production specialist on independent film projects. Full-cycle production from screenplay to final deliverable.</div>
+        <ul class="exp-bullets">
+          <li>Wrote original screenplays and story concepts using Final Draft</li>
+          <li>Managed production planning, scheduling and cross-team coordination</li>
+          <li>Edited, color graded and mixed audio using DaVinci Resolve</li>
+          <li>Designed visual assets and promotional graphics in Adobe Photoshop</li>
+        </ul>
+        <div class="tags" style="margin-top:16px;">
+          <span class="tag">DaVinci Resolve</span>
+          <span class="tag">Premiere Pro</span>
+          <span class="tag">After Effects</span>
+          <span class="tag">Photoshop</span>
+          <span class="tag">Final Draft</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ SKILLS ═══ -->
+<section>
+  <div class="section-label">Capabilities</div>
+  <h2>Skills</h2>
+
+  <div class="skills-wrap">
+
+    <div class="skill-group">
+      <div class="skill-group-title">Machine Learning & AI</div>
+      <div class="skill-tags">
+        <span class="skill-pill">Python</span>
+        <span class="skill-pill">scikit-learn</span>
+        <span class="skill-pill">NLP</span>
+        <span class="skill-pill">RAG Pipelines</span>
+        <span class="skill-pill">FAISS Vector Search</span>
+        <span class="skill-pill">Sentence Transformers</span>
+        <span class="skill-pill">TF-IDF</span>
+        <span class="skill-pill">Prompt Engineering</span>
+        <span class="skill-pill">LLM API Integration</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-group-title">Cloud & Deployment</div>
+      <div class="skill-tags">
+        <span class="skill-pill">AWS Cloud</span>
+        <span class="skill-pill">Streamlit Cloud</span>
+        <span class="skill-pill">GitHub</span>
+        <span class="skill-pill">Groq API</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-group-title">Data & Analysis</div>
+      <div class="skill-tags">
+        <span class="skill-pill">pandas</span>
+        <span class="skill-pill">matplotlib</span>
+        <span class="skill-pill">Data Visualization</span>
+        <span class="skill-pill">Model Evaluation</span>
+        <span class="skill-pill">F1 Score / Metrics</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-group-title">Creative & Production</div>
+      <div class="skill-tags">
+        <span class="skill-pill">DaVinci Resolve</span>
+        <span class="skill-pill">Adobe Premiere Pro</span>
+        <span class="skill-pill">After Effects</span>
+        <span class="skill-pill">Photoshop</span>
+        <span class="skill-pill">Final Draft</span>
+        <span class="skill-pill">Screenwriting</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ EDUCATION & CERTS ═══ -->
+<section>
+  <div class="section-label">Education</div>
+  <h2>Academic & Certifications</h2>
+
+  <div class="edu-card">
+    <div>
+      <div class="edu-school">AIE — Academic Institute of Excellence</div>
+      <div class="edu-degree">Foundation Programme in Information Technology</div>
+      <div style="font-size:14px; color:#999; margin-top:8px;">Building core skills in programming, systems thinking, and applied computing.</div>
+    </div>
+    <div class="edu-date">Feb 2026 – Jun 2026</div>
+  </div>
+
+  <div class="cert-grid" style="margin-top:32px;">
+    <div class="cert-card">
+      <div class="cert-icon">🤖</div>
+      <div>
+        <div class="cert-name">Introduction to Generative AI</div>
+        <div class="cert-org">Google Cloud</div>
+      </div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon">☁️</div>
+      <div>
+        <div class="cert-name">AWS Fundamentals of ML & AI</div>
+        <div class="cert-org">Amazon Web Services</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CONTACT ═══ -->
+<div class="contact-section">
+  <div>
+    <div class="section-label" style="margin-bottom:24px;">Let's Connect</div>
+    <div class="contact-heading">Open to<br>opportunities</div>
+    <p class="contact-sub">Interested in ML engineering, AI development, and cloud roles. Always up for a conversation about building intelligent systems.</p>
+  </div>
+  <div class="contact-links">
+    <a href="https://www.linkedin.com/in/rohanrongala" class="contact-link" target="_blank">
+      <span class="contact-link-icon">💼</span>
+      linkedin.com/in/rohanrongala
+    </a>
+    <a href="https://github.com/rohansairongala" class="contact-link" target="_blank">
+      <span class="contact-link-icon">⌥</span>
+      github.com/rohansairongala
+    </a>
+    <a href="https://sentiment-analyser-rohan.streamlit.app" class="contact-link" target="_blank">
+      <span class="contact-link-icon">🚀</span>
+      Live Project: Sentiment Analyser
+    </a>
+    <a href="https://prompt-enhancer-rohan.streamlit.app" class="contact-link" target="_blank">
+      <span class="contact-link-icon">⚡</span>
+      Live Project: Prompt Enhancer
+    </a>
+  </div>
+</div>
+
+<footer>
+  <span>Rohan Rongala · 2026</span>
+  <span style="color:var(--border)">Johannesburg, ZA</span>
+</footer>
+
+</body>
+</html>
