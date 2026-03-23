@@ -314,25 +314,98 @@
   }
 
   /* ── SKILLS ── */
-  .skills-wrap { margin-top: 48px; }
-  .skill-group { margin-bottom: 48px; }
-  .skill-group-title {
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 48px;
+  }
+  .skill-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px;
+    transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .skill-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at top left, rgba(0,229,160,0.05), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+  }
+  .skill-card:hover {
+    border-color: rgba(0,229,160,0.35);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+  }
+  .skill-card:hover::before { opacity: 1; }
+  .skill-card-icon {
+    font-size: 28px;
+    margin-bottom: 14px;
+    display: block;
+  }
+  .skill-card-title {
     font-family: 'DM Mono', monospace;
     font-size: 10px; letter-spacing: 0.2em;
-    text-transform: uppercase; color: var(--muted);
-    margin-bottom: 20px;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
   }
-  .skill-tags { display: flex; flex-wrap: wrap; gap: 10px; }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
   .skill-pill {
-    font-size: 13px;
-    padding: 9px 18px; border-radius: 30px;
+    font-size: 12px;
+    font-family: 'DM Mono', monospace;
+    padding: 5px 12px; border-radius: 4px;
     border: 1px solid var(--border);
-    color: #ccc;
-    background: var(--surface);
+    color: #bbb;
+    background: var(--surface2);
     transition: all 0.2s;
     cursor: default;
+    letter-spacing: 0.03em;
   }
-  .skill-pill:hover { border-color: var(--accent); color: var(--accent); }
+  .skill-pill:hover { border-color: var(--accent); color: var(--accent); background: rgba(0,229,160,0.06); }
+
+  /* ── NAV ── */
+  .site-nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 60px;
+    height: 56px;
+    background: rgba(13,13,13,0.85);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .nav-logo {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px; color: var(--accent);
+    letter-spacing: 0.1em;
+    text-decoration: none;
+  }
+  .nav-links {
+    display: flex; gap: 32px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+  @media (max-width: 600px) {
+    .site-nav { padding: 0 20px; }
+    .nav-links { gap: 18px; }
+    .nav-links a { font-size: 10px; }
+  }
+  @media (max-width: 380px) { .nav-links { display: none; } }
 
   /* ── EDUCATION ── */
   .edu-card {
@@ -441,6 +514,75 @@
   .grid-line:nth-child(2) { left: 50%; }
   .grid-line:nth-child(3) { left: 75%; }
 
+  /* ── QUINTUS CARD ── */
+  .status-badge {
+    display: inline-flex; align-items: center; gap: 9px;
+    background: rgba(0, 229, 160, 0.06);
+    border: 1px solid rgba(0, 229, 160, 0.25);
+    color: var(--accent);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: 0.1em;
+    padding: 7px 14px; border-radius: 4px;
+    margin-bottom: 28px;
+  }
+  .status-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--accent);
+    animation: pulse-dot 2s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.4; transform: scale(0.7); }
+  }
+  .capability-callout {
+    margin-top: 32px;
+    padding: 18px 22px;
+    background: rgba(0, 229, 160, 0.04);
+    border-left: 2px solid var(--accent);
+    border-radius: 0 6px 6px 0;
+    font-size: 13px; color: #bbb;
+    line-height: 1.7;
+    font-style: italic;
+  }
+  .quintus-panel {
+    background: var(--surface2);
+    border-radius: 8px;
+    padding: 32px;
+    border: 1px solid var(--border);
+    display: flex; flex-direction: column;
+    justify-content: space-between;
+    gap: 28px;
+    min-height: 280px;
+  }
+  .redacted-line {
+    height: 10px; border-radius: 3px;
+    background: #222;
+    position: relative; overflow: hidden;
+  }
+  .redacted-line::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.03) 50%, transparent 100%);
+    animation: shimmer 3s ease-in-out infinite;
+  }
+  @keyframes shimmer {
+    0%   { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+  .redacted-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; color: #3a3a3a;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .lock-icon {
+    font-size: 28px; opacity: 0.25;
+    text-align: center;
+    margin-top: auto;
+    padding-top: 8px;
+  }
+
   /* ── RESPONSIVE: TABLET (≤900px) ── */
   @media (max-width: 900px) {
     .hero { grid-template-columns: 1fr; min-height: auto; }
@@ -456,6 +598,7 @@
     footer { padding: 28px 32px; }
     .edu-card { grid-template-columns: 1fr; }
     .edu-date { white-space: normal; }
+    .skills-grid { grid-template-columns: 1fr 1fr; }
   }
 
   /* ── RESPONSIVE: MOBILE (≤600px) ── */
@@ -482,7 +625,9 @@
     .edu-degree { font-size: 18px; }
     .section-label { margin-bottom: 32px; }
     .exp-item { padding: 32px 0; }
-    .skill-pill { font-size: 12px; padding: 7px 14px; }
+    .skill-pill { font-size: 11px; padding: 4px 10px; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .skill-card { padding: 22px 18px; }
   }
 
   /* ── RESPONSIVE: SMALL MOBILE (≤380px) ── */
@@ -495,12 +640,26 @@
 </head>
 <body>
 
+<!-- ═══ NAV ═══ -->
+<nav class="site-nav">
+  <a href="#hero" class="nav-logo">RR —</a>
+  <ul class="nav-links">
+    <li><a href="#projects">Work</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
 <div class="grid-line"></div>
 <div class="grid-line"></div>
 <div class="grid-line"></div>
 
 <!-- ═══ HERO ═══ -->
-<div class="hero">
+<!-- Push hero below fixed nav -->
+<div style="padding-top:56px;"></div>
+<div id="hero" class="hero">
   <div class="hero-noise"></div>
 
   <div class="hero-left">
@@ -544,7 +703,7 @@
 </div>
 
 <!-- ═══ PROJECTS ═══ -->
-<section>
+<section id="projects">
   <div class="section-label">Selected Work</div>
   <h2 class="section-heading">Machine Learning<br>Projects</h2>
 
@@ -623,11 +782,73 @@
       </div>
     </div>
 
+    <!-- Quintus — Closing Featured Card -->
+    <div class="project-card featured" style="border-top: 1px solid var(--border);">
+      <div>
+        <div class="project-num">04 — In Development</div>
+        <div class="project-title" style="font-size: 28px; letter-spacing: -1px; margin-bottom: 20px;">Quintus</div>
+        <div class="status-badge">
+          <span class="status-dot"></span>
+          ⚙ Active Development · Concept Confidential
+        </div>
+        <div class="project-desc" style="max-width: 520px;">
+          Some projects aren't ready for the world yet — not because they're unfinished, but because they're being built right. Quintus is that project. A deeply personal, independently driven build that has consumed the better part of my focus outside of everything else you see here. The concept stays close to the chest for now.
+        </div>
+        <div class="tags" style="margin-top: 4px;">
+          <span class="tag">Python</span>
+          <span class="tag">NLP</span>
+          <span class="tag">Large Language Models</span>
+          <span class="tag">RAG Pipelines</span>
+          <span class="tag">FAISS Vector Search</span>
+          <span class="tag">Prompt Engineering</span>
+          <span class="tag">LLM Fine-Tuning</span>
+          <span class="tag">AI Training Pipelines</span>
+          <span class="tag">Model Evaluation</span>
+          <span class="tag">Sentence Transformers</span>
+          <span class="tag">Groq API</span>
+          <span class="tag">LLaMA 3.3</span>
+          <span class="tag">UI/UX Design</span>
+          <span class="tag">SQL</span>
+          <span class="tag">Data Pipelines</span>
+          <span class="tag">Streamlit</span>
+          <span class="tag">REST APIs</span>
+          <span class="tag">System Architecture</span>
+          <span class="tag">Version Control</span>
+        </div>
+        <div class="capability-callout">
+          "Spans the full stack of modern AI development — from raw data and model training through to interface design and deployment."
+        </div>
+      </div>
+      <div class="quintus-panel">
+        <div>
+          <div class="redacted-label">Project Details</div>
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <div class="redacted-line" style="width: 80%;"></div>
+            <div class="redacted-line" style="width: 55%;"></div>
+            <div class="redacted-line" style="width: 70%;"></div>
+            <div class="redacted-line" style="width: 40%;"></div>
+          </div>
+        </div>
+        <div>
+          <div class="redacted-label" style="margin-bottom: 12px;">Stack Depth</div>
+          <div style="height: 4px; background: var(--border); border-radius: 2px; margin-bottom: 10px;">
+            <div style="width: 100%; height: 100%; background: linear-gradient(90deg, var(--accent), #00b87a); border-radius: 2px;"></div>
+          </div>
+          <div style="font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); display: flex; justify-content: space-between;">
+            <span>Data → Model → Interface → Deploy</span>
+            <span style="color: var(--accent);">Full</span>
+          </div>
+        </div>
+        <div class="lock-icon">🔒</div>
+      </div>
+    </div>
+
   </div>
+
 </section>
 
 <!-- ═══ EXPERIENCE ═══ -->
-<section>
+<section id="experience">
   <div class="section-label">Background</div>
   <h2 class="section-heading">Experience</h2>
 
@@ -721,69 +942,91 @@
 </section>
 
 <!-- ═══ SKILLS ═══ -->
-<section>
+<section id="skills">
   <div class="section-label">Capabilities</div>
   <h2 class="section-heading">Skills</h2>
 
-  <div class="skills-wrap">
+  <div class="skills-grid">
 
-    <div class="skill-group">
-      <div class="skill-group-title">Machine Learning &amp; AI</div>
+    <!-- ML & AI -->
+    <div class="skill-card">
+      <span class="skill-card-icon">🧠</span>
+      <div class="skill-card-title">Machine Learning &amp; AI</div>
       <div class="skill-tags">
         <span class="skill-pill">Python</span>
         <span class="skill-pill">scikit-learn</span>
         <span class="skill-pill">NLP</span>
-        <span class="skill-pill">RAG Pipelines</span>
+        <span class="skill-pill">TF-IDF</span>
         <span class="skill-pill">FAISS Vector Search</span>
         <span class="skill-pill">Sentence Transformers</span>
-        <span class="skill-pill">TF-IDF</span>
-        <span class="skill-pill">Prompt Engineering</span>
-        <span class="skill-pill">LLM API Integration</span>
+        <span class="skill-pill">LLM Fine-Tuning</span>
+        <span class="skill-pill">Model Evaluation</span>
+        <span class="skill-pill">AI Training Pipelines</span>
       </div>
     </div>
 
-    <div class="skill-group">
-      <div class="skill-group-title">Cloud &amp; Deployment</div>
+    <!-- LLMs & RAG -->
+    <div class="skill-card">
+      <span class="skill-card-icon">⚡</span>
+      <div class="skill-card-title">LLMs &amp; RAG</div>
+      <div class="skill-tags">
+        <span class="skill-pill">RAG Pipelines</span>
+        <span class="skill-pill">Prompt Engineering</span>
+        <span class="skill-pill">LLM API Integration</span>
+        <span class="skill-pill">LLaMA 3.3</span>
+        <span class="skill-pill">Groq API</span>
+        <span class="skill-pill">Chain-of-Thought</span>
+        <span class="skill-pill">Self-Consistency</span>
+      </div>
+    </div>
+
+    <!-- Cloud & Deployment -->
+    <div class="skill-card">
+      <span class="skill-card-icon">☁️</span>
+      <div class="skill-card-title">Cloud &amp; Deployment</div>
       <div class="skill-tags">
         <span class="skill-pill">AWS Cloud</span>
         <span class="skill-pill">Streamlit Cloud</span>
+        <span class="skill-pill">REST APIs</span>
+        <span class="skill-pill">System Architecture</span>
+        <span class="skill-pill">Version Control</span>
         <span class="skill-pill">GitHub</span>
-        <span class="skill-pill">Groq API</span>
       </div>
     </div>
 
-    <div class="skill-group">
-      <div class="skill-group-title">Data &amp; Analysis</div>
+    <!-- Data & Analysis -->
+    <div class="skill-card">
+      <span class="skill-card-icon">📊</span>
+      <div class="skill-card-title">Data &amp; Analysis</div>
       <div class="skill-tags">
         <span class="skill-pill">pandas</span>
         <span class="skill-pill">matplotlib</span>
+        <span class="skill-pill">SQL</span>
+        <span class="skill-pill">Data Pipelines</span>
         <span class="skill-pill">Data Visualization</span>
-        <span class="skill-pill">Model Evaluation</span>
-        <span class="skill-pill">F1 Score / Metrics</span>
+        <span class="skill-pill">F1 / Precision / Recall</span>
       </div>
     </div>
 
-    <div class="skill-group">
-      <div class="skill-group-title">Community Building &amp; Leadership</div>
+    <!-- Leadership -->
+    <div class="skill-card">
+      <span class="skill-card-icon">🏛️</span>
+      <div class="skill-card-title">Leadership &amp; Community</div>
       <div class="skill-tags">
         <span class="skill-pill">Community Architecture</span>
         <span class="skill-pill">Stakeholder Management</span>
         <span class="skill-pill">Admin Delegation</span>
-        <span class="skill-pill">Needs Assessment</span>
-        <span class="skill-pill">Cross-Branch Coordination</span>
         <span class="skill-pill">Conflict Resolution</span>
-        <span class="skill-pill">Network Curation</span>
-        <span class="skill-pill">Community Moderation</span>
         <span class="skill-pill">Engagement Strategy</span>
-        <span class="skill-pill">Organisational Communication</span>
-        <span class="skill-pill">Leadership</span>
+        <span class="skill-pill">Cross-Branch Coordination</span>
         <span class="skill-pill">Motivational Communication</span>
-        <span class="skill-pill">WhatsApp Communities</span>
       </div>
     </div>
 
-    <div class="skill-group">
-      <div class="skill-group-title">Creative &amp; Production</div>
+    <!-- Creative -->
+    <div class="skill-card">
+      <span class="skill-card-icon">🎬</span>
+      <div class="skill-card-title">Creative &amp; Production</div>
       <div class="skill-tags">
         <span class="skill-pill">DaVinci Resolve</span>
         <span class="skill-pill">Adobe Premiere Pro</span>
@@ -791,6 +1034,7 @@
         <span class="skill-pill">Photoshop</span>
         <span class="skill-pill">Final Draft</span>
         <span class="skill-pill">Screenwriting</span>
+        <span class="skill-pill">UI/UX Design</span>
       </div>
     </div>
 
@@ -798,7 +1042,7 @@
 </section>
 
 <!-- ═══ EDUCATION & CERTS ═══ -->
-<section>
+<section id="education">
   <div class="section-label">Education</div>
   <h2 class="section-heading">Academic &amp; Certifications</h2>
 
@@ -830,7 +1074,7 @@
 </section>
 
 <!-- ═══ CONTACT ═══ -->
-<div class="contact-section">
+<section id="contact" class="contact-section" style="padding: 80px 60px; margin: 0; max-width: 100%;">
   <div>
     <div class="section-label" style="margin-bottom:24px;">Let's Connect</div>
     <div class="contact-heading">Open to<br>opportunities</div>
@@ -855,7 +1099,7 @@
       Live Project: Prompt Enhancer
     </a>
   </div>
-</div>
+</section>
 
 <footer>
   <span>Rohan Rongala · 2026</span>
