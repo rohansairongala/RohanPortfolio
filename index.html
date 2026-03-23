@@ -8,7 +8,6 @@
 <meta property="og:description" content="Building intelligent systems at the intersection of machine learning, generative AI, and real-world problems.">
 <meta property="og:type" content="website">
 <title>Rohan Rongala — ML &amp; AI Portfolio</title>
-<!-- BUG FIX: Added missing fonts.gstatic.com preconnect (required by Google Fonts for performance) -->
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='12' fill='%230d0d0d'/><text y='68' x='50' text-anchor='middle' font-family='monospace' font-size='42' font-weight='900' fill='%2300e5a0'>RR</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -414,7 +413,7 @@
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 10px;
-    padding: 44px; margin-top: 48px;
+    padding: 44px; margin-top: 32px;
     display: grid; grid-template-columns: 1fr auto;
     gap: 24px; align-items: start;
   }
@@ -585,6 +584,52 @@
     padding-top: 8px;
   }
 
+  /* ── LIVE CARDS ── */
+  .live-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 16px; margin-top: 32px;
+  }
+  .live-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px; padding: 36px;
+    text-decoration: none; display: block;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .live-card:hover {
+    border-color: rgba(0,229,160,0.4);
+    transform: translateY(-3px);
+  }
+  .live-card-header {
+    display: flex; justify-content: space-between;
+    align-items: flex-start; margin-bottom: 20px;
+  }
+  .live-card-num {
+    font-family: 'DM Mono', monospace; font-size: 10px;
+    letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted);
+  }
+  .live-badge {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: rgba(0,229,160,0.08); border: 1px solid rgba(0,229,160,0.25);
+    color: var(--accent); font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.1em; padding: 5px 10px; border-radius: 3px;
+  }
+  .live-badge-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent); animation: pulse-dot 2s ease-in-out infinite;
+    display: inline-block;
+  }
+  .live-card-title {
+    font-family: 'Syne', sans-serif; font-size: 20px;
+    font-weight: 700; margin-bottom: 12px; color: var(--text);
+  }
+  .live-card-desc {
+    font-size: 14px; color: #999; line-height: 1.75; margin-bottom: 24px;
+  }
+  .live-card-url {
+    font-family: 'DM Mono', monospace; font-size: 12px; color: var(--accent);
+  }
+
   /* ── RESPONSIVE: TABLET (≤900px) ── */
   @media (max-width: 900px) {
     .hero { grid-template-columns: 1fr; min-height: auto; }
@@ -594,7 +639,7 @@
     .exp-item { grid-template-columns: 1fr; gap: 10px; }
     .cert-grid { grid-template-columns: 1fr; }
     .contact-section { grid-template-columns: 1fr; padding: 60px 40px; }
-    #live > div[style*="grid"] { grid-template-columns: 1fr !important; }
+    .live-grid { grid-template-columns: 1fr; }
     section { padding: 60px 32px; }
     .hero-left { padding: 60px 32px; }
     .hero-right { padding: 40px 32px; }
@@ -668,16 +713,14 @@
 
   <div class="hero-left">
     <div class="eyebrow">ML Engineer · AI Builder</div>
-    <!-- BUG FIX: Changed h1 to use .hero-title class to avoid global h1 style pollution -->
     <h1 class="hero-title">
       Rohan
       <span>Rongala</span>
     </h1>
     <p class="hero-bio">
-      Building intelligent systems at the intersection of machine learning, generative AI, and real-world problems. Python · AWS Cloud · NLP · RAG Pipelines.
+      ML engineer, community builder, and filmmaker — three disciplines that all demand the same thing: building something people actually connect with. Currently focused on NLP, RAG pipelines, and generative AI.
     </p>
     <div class="hero-links">
-      <!-- BUG FIX: Added rel="noopener noreferrer" to all target="_blank" links for security -->
       <a href="https://github.com/rohansairongala" class="btn btn-primary" target="_blank" rel="noopener noreferrer">GitHub Projects ↗</a>
       <a href="https://www.linkedin.com/in/rohanrongala" class="btn btn-outline" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
     </div>
@@ -775,7 +818,7 @@
     <div class="project-card">
       <div class="project-num">03 — NLP · Text</div>
       <div class="project-title">AI Text Humanizer</div>
-      <div class="status-badge" style="margin-bottom:18px;">
+      <div class="status-badge">
         <span class="status-dot"></span>
         ⚙ Under Construction
       </div>
@@ -796,6 +839,52 @@
     </div>
 
     <!-- Quintus — Closing Featured Card -->
+    <div class="project-card featured" style="border-top: 1px solid var(--border);">
+      <div>
+        <div class="project-num">04 — In Development</div>
+        <div class="project-title" style="font-size: 28px; letter-spacing: -1px; margin-bottom: 20px;">Quintus</div>
+        <div class="status-badge">
+          <span class="status-dot"></span>
+          ⚙ Active Development · Concept Confidential
+        </div>
+        <div class="project-desc" style="max-width: 520px;">
+          Some projects aren't ready for the world yet — not because they're unfinished, but because they're being built right. Quintus is that project. A deeply personal, independently driven build that has consumed the better part of my focus outside of everything else you see here. The concept stays close to the chest for now.
+        </div>
+        <div class="tags" style="margin-top: 4px;">
+          <span class="tag">Python</span><span class="tag">NLP</span><span class="tag">Large Language Models</span>
+          <span class="tag">RAG Pipelines</span><span class="tag">FAISS Vector Search</span><span class="tag">Prompt Engineering</span>
+          <span class="tag">LLM Fine-Tuning</span><span class="tag">AI Training Pipelines</span><span class="tag">Model Evaluation</span>
+          <span class="tag">Sentence Transformers</span><span class="tag">Groq API</span><span class="tag">LLaMA 3.3</span>
+          <span class="tag">UI/UX Design</span><span class="tag">SQL</span><span class="tag">Data Pipelines</span>
+          <span class="tag">Streamlit</span><span class="tag">REST APIs</span><span class="tag">System Architecture</span>
+          <span class="tag">Version Control</span>
+        </div>
+        <div class="capability-callout">
+          "Spans the full stack of modern AI development — from raw data and model training through to interface design and deployment."
+        </div>
+      </div>
+      <div class="quintus-panel">
+        <div>
+          <div class="redacted-label">Project Details</div>
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <div class="redacted-line" style="width: 80%;"></div>
+            <div class="redacted-line" style="width: 55%;"></div>
+            <div class="redacted-line" style="width: 70%;"></div>
+            <div class="redacted-line" style="width: 40%;"></div>
+          </div>
+        </div>
+        <div>
+          <div class="redacted-label" style="margin-bottom: 12px;">Stack Depth</div>
+          <div style="height: 4px; background: var(--border); border-radius: 2px; margin-bottom: 10px;">
+            <div style="width: 100%; height: 100%; background: linear-gradient(90deg, var(--accent), #00b87a); border-radius: 2px;"></div>
+          </div>
+          <div style="font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); display: flex; justify-content: space-between;">
+            <span>Data → Model → Interface → Deploy</span><span style="color: var(--accent);">Full</span>
+          </div>
+        </div>
+        <div class="lock-icon">🔒</div>
+      </div>
+    </div>
     <div class="project-card featured" style="border-top: 1px solid var(--border);">
       <div>
         <div class="project-num">04 — In Development</div>
@@ -868,7 +957,7 @@
   <div class="exp-list">
 
     <div class="exp-item">
-      <div class="exp-date">Mar 2026 – Present<br><br><span style="color:var(--accent); font-size:10px;">1 month</span></div>
+      <div class="exp-date">Mar 2026 – Present<br><span style="color:var(--accent); font-size:10px; margin-top:6px; display:inline-block;">1 month</span></div>
       <div>
         <div class="exp-org">Independent / Personal Projects</div>
         <div class="exp-role">Machine Learning Developer</div>
@@ -883,12 +972,12 @@
     </div>
 
     <div class="exp-item">
-      <div class="exp-date">Feb 2026 – Present<br><br><span style="color:var(--accent); font-size:10px;">2 months</span></div>
+      <div class="exp-date">Feb 2026 – Present<br><span style="color:var(--accent); font-size:10px; margin-top:6px; display:inline-block;">2 months</span></div>
       <div>
         <div class="exp-org">AIE | Foundation · South Africa</div>
         <div class="exp-role">Community Builder &amp; Organizer</div>
         <div class="exp-desc">
-          Identified a structural gap in how students across AIE's South African branches — Johannesburg, Durban, Cape Town and beyond — were sharing resources and connecting with one another. Took initiative to design and build a WhatsApp community from the ground up, conducting direct outreach across existing groups to understand student needs before a single group was created.
+          Identified a gap in how students across AIE's South African branches were sharing resources and connecting. Designed and built a WhatsApp community from the ground up — conducting direct outreach to understand needs before a single group was created.
         </div>
         <ul class="exp-bullets">
           <li>Conducted needs assessments by engaging students from different branches to define community structure before launch — ensuring the architecture was built around real requirements, not assumptions</li>
@@ -899,7 +988,8 @@
           <li>Managed ongoing community operations — resolving conflicts, enforcing community standards, and continuously refining the structure as the network grew</li>
           <li>Regularly motivate and re-energise members by drawing from personal life experiences — sharing lessons, mindset shifts, and honest perspectives that keep the community focused, driven, and reminded of why they started</li>
         </ul>
-        <div class="project-links" style="margin-top:20px;">
+
+                <div class="project-links" style="margin-top:20px;">
           <a href="https://chat.whatsapp.com/DfNiqOibwEl9ZsJ8UWX0xx" class="project-link" target="_blank" rel="noopener noreferrer">Join AIE Community ↗</a>
         </div>
 
@@ -914,24 +1004,22 @@
           <div style="font-size:14px; color:#999; line-height:1.8; margin-bottom:16px;">
             The group functions as a knowledge-exchange and professional development environment: members share industry contacts, discuss emerging trends, challenge each other's thinking, and provide peer accountability — all within a culture that demands professionalism and rewards initiative.
           </div>
+          <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px;">
+            <span style="font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; padding:5px 12px; border-radius:3px; background:#1a1a1a; border:1px solid #2a2a2a; color:#888;">Community Architecture</span>
+            <span style="font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; padding:5px 12px; border-radius:3px; background:#1a1a1a; border:1px solid #2a2a2a; color:#888;">Stakeholder Management</span>
+            <span style="font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; padding:5px 12px; border-radius:3px; background:#1a1a1a; border:1px solid #2a2a2a; color:#888;">Admin Delegation</span>
+            <span style="font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; padding:5px 12px; border-radius:3px; background:#1a1a1a; border:1px solid #2a2a2a; color:#888;">Cross-Branch Coordination</span>
+            <span style="font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; padding:5px 12px; border-radius:3px; background:#1a1a1a; border:1px solid #2a2a2a; color:#888;">Leadership</span>
+          </div>
           <div style="font-family:'DM Mono',monospace; font-size:11px; color:var(--muted); padding:12px 16px; background:var(--surface); border-radius:4px; display:inline-block;">
             🔒 Invite-only · Link shared upon request
           </div>
-        </div>
-
-        <div class="tags" style="margin-top:20px;">
-          <span class="tag">Community Architecture</span>
-          <span class="tag">Stakeholder Management</span>
-          <span class="tag">Admin Delegation</span>
-          <span class="tag">Cross-Branch Coordination</span>
-          <span class="tag">WhatsApp Communities</span>
-          <span class="tag">Leadership</span>
         </div>
       </div>
     </div>
 
     <div class="exp-item">
-      <div class="exp-date">Mar 2022 – Present<br><br><span style="color:var(--accent); font-size:10px;">4 years</span></div>
+      <div class="exp-date">Mar 2022 – Present<br><span style="color:var(--accent); font-size:10px; margin-top:6px; display:inline-block;">4 years</span></div>
       <div>
         <div class="exp-org">Sarga Entertainments</div>
         <div class="exp-role">Filmmaker</div>
@@ -1089,45 +1177,35 @@
 
 <!-- ═══ LIVE PROJECTS ═══ -->
 <section id="live">
-  <div class="section-label">Deployed & Running</div>
+  <div class="section-label">Deployed &amp; Running</div>
   <h2 class="section-heading">Live Projects</h2>
-  <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:48px;">
+  <div class="live-grid">
 
-    <a href="https://sentiment-analyser-rohan.streamlit.app" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
-      <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:36px; transition: border-color 0.2s, transform 0.2s; cursor:pointer;" onmouseover="this.style.borderColor='rgba(0,229,160,0.4)';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
-        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:20px;">
-          <div style="font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.15em; text-transform:uppercase; color:var(--muted);">01 — NLP Classifier</div>
-          <div style="display:inline-flex; align-items:center; gap:7px; background:rgba(0,229,160,0.08); border:1px solid rgba(0,229,160,0.25); color:var(--accent); font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.1em; padding:5px 10px; border-radius:3px;">
-            <span style="width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse-dot 2s ease-in-out infinite;display:inline-block;"></span>
-            LIVE
-          </div>
-        </div>
-        <div style="font-family:'Syne',sans-serif; font-size:20px; font-weight:700; margin-bottom:12px; color:var(--text);">Sentiment Analyser</div>
-        <div style="font-size:14px; color:#999; line-height:1.75; margin-bottom:24px;">NLP binary classifier trained on 50,000 IMDB reviews. 88.38% accuracy. Compare Logistic Regression vs Naive Bayes in real time.</div>
-        <div style="font-family:'DM Mono',monospace; font-size:12px; color:var(--accent);">sentiment-analyser-rohan.streamlit.app ↗</div>
+    <a href="https://sentiment-analyser-rohan.streamlit.app" target="_blank" rel="noopener noreferrer" class="live-card">
+      <div class="live-card-header">
+        <span class="live-card-num">01 — NLP Classifier</span>
+        <span class="live-badge"><span class="live-badge-dot"></span>LIVE</span>
       </div>
+      <div class="live-card-title">Sentiment Analyser</div>
+      <div class="live-card-desc">NLP binary classifier trained on 50,000 IMDB reviews. 88.38% accuracy. Compare Logistic Regression vs Naive Bayes in real time.</div>
+      <div class="live-card-url">sentiment-analyser-rohan.streamlit.app ↗</div>
     </a>
 
-    <a href="https://prompt-enhancer-rohan.streamlit.app" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
-      <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:36px; transition: border-color 0.2s, transform 0.2s; cursor:pointer;" onmouseover="this.style.borderColor='rgba(0,229,160,0.4)';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
-        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:20px;">
-          <div style="font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.15em; text-transform:uppercase; color:var(--muted);">02 — RAG · LLM</div>
-          <div style="display:inline-flex; align-items:center; gap:7px; background:rgba(0,229,160,0.08); border:1px solid rgba(0,229,160,0.25); color:var(--accent); font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.1em; padding:5px 10px; border-radius:3px;">
-            <span style="width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse-dot 2s ease-in-out infinite;display:inline-block;"></span>
-            LIVE
-          </div>
-        </div>
-        <div style="font-family:'Syne',sans-serif; font-size:20px; font-weight:700; margin-bottom:12px; color:var(--text);">AI Prompt Enhancer</div>
-        <div style="font-size:14px; color:#999; line-height:1.75; margin-bottom:24px;">Research-backed RAG system enhancing prompts for 5 major LLMs. Grounded in 6 peer-reviewed NLP papers. 15+ point avg. quality gain.</div>
-        <div style="font-family:'DM Mono',monospace; font-size:12px; color:var(--accent);">prompt-enhancer-rohan.streamlit.app ↗</div>
+    <a href="https://prompt-enhancer-rohan.streamlit.app" target="_blank" rel="noopener noreferrer" class="live-card">
+      <div class="live-card-header">
+        <span class="live-card-num">02 — RAG · LLM</span>
+        <span class="live-badge"><span class="live-badge-dot"></span>LIVE</span>
       </div>
+      <div class="live-card-title">AI Prompt Enhancer</div>
+      <div class="live-card-desc">Research-backed RAG system enhancing prompts for 5 major LLMs. Grounded in 6 peer-reviewed NLP papers. 15+ point avg. quality gain.</div>
+      <div class="live-card-url">prompt-enhancer-rohan.streamlit.app ↗</div>
     </a>
 
   </div>
 </section>
 
 <!-- ═══ CONTACT ═══ -->
-<section id="contact" class="contact-section" style="padding: 80px 60px; margin: 0; max-width: 100%;">
+<section id="contact" class="contact-section">
   <div>
     <div class="section-label" style="margin-bottom:24px;">Let's Connect</div>
     <div class="contact-heading">Open to<br>opportunities</div>
@@ -1155,9 +1233,9 @@
 
 <footer>
   <span>Rohan Rongala · 2026</span>
-  <!-- BUG FIX: Was using var(--border) (#2a2a2a) — near-invisible dark color. Fixed to var(--muted). -->
   <span class="footer-location">Johannesburg, ZA</span>
 </footer>
+
 
 </body>
 </html>
