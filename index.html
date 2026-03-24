@@ -181,7 +181,7 @@
       background: var(--surface);
       display: flex;
       flex-direction: column;
-      justify-content: flex-end;
+      justify-content: center;
       /* Match hero-left top padding reduction */
       padding: 52px 60px 60px;
       position: relative;
@@ -1308,19 +1308,19 @@
     <div class="hero-right">
       <div class="stat-grid">
         <div class="stat">
-          <div class="stat-num">88%</div>
+          <div class="stat-num" data-target="88" data-suffix="%">0%</div>
           <div class="stat-label">NLP Model Accuracy</div>
         </div>
         <div class="stat">
-          <div class="stat-num">300+</div>
+          <div class="stat-num" data-target="300" data-suffix="+">0+</div>
           <div class="stat-label">Community Members</div>
         </div>
         <div class="stat">
-          <div class="stat-num">15+</div>
+          <div class="stat-num" data-target="15" data-suffix="+">0+</div>
           <div class="stat-label">Prompt Quality Points</div>
         </div>
         <div class="stat">
-          <div class="stat-num">4yr</div>
+          <div class="stat-num" data-target="4" data-suffix="yr">0yr</div>
           <div class="stat-label">Filmmaking Experience</div>
         </div>
       </div>
@@ -1878,6 +1878,40 @@
     }, { rootMargin: '-30% 0px -60% 0px' });
 
     sections.forEach(s => observer.observe(s));
+
+    // ── Number count-up animation ──
+    const statNums = document.querySelectorAll('.stat-num[data-target]');
+    const statObserver = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const target = parseFloat(el.getAttribute('data-target'));
+          const suffix = el.getAttribute('data-suffix') || '';
+          const duration = 2000; // ms
+          
+          let startTime = null;
+          const easeOutQuad = t => t * (2 - t);
+          
+          const animate = (timestamp) => {
+            if (!startTime) startTime = timestamp;
+            const progress = (timestamp - startTime) / duration;
+            
+            if (progress < 1) {
+              const currentVal = target * easeOutQuad(progress);
+              el.textContent = Math.floor(currentVal) + suffix;
+              requestAnimationFrame(animate);
+            } else {
+              el.textContent = target + suffix;
+            }
+          };
+          
+          requestAnimationFrame(animate);
+          obs.unobserve(el);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    statNums.forEach(num => statObserver.observe(num));
   </script>
 
 </body>
